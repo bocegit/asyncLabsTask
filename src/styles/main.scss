@@ -2,7 +2,37 @@
 // Option A: Include all of Bootstrap
 
 // Include any default variable overrides here (though functions won't be available)
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1020px,
+  xxl: 1100px
+);
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 // Then add additional custom code here
+
+.avatar {
+  vertical-align: left;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.spinner-border {
+  width: 6rem;
+  height: 6rem;
+}
+
+#btn-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  padding: 0px;
+  border-radius: 25%;
+  width: 4rem;
+  height: 4rem;
+}
