@@ -1,0 +1,9 @@
+const errorMessage = {
+  feed: {
+    getPosts: 'Error while loading posts',
+    saveBookmark: 'Error while bookmarking post',
+    deleteBookmark: 'Error while deleting bookmark'
+  }
+};
+
+export default errorMessage;

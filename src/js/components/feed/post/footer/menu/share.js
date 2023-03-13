@@ -126,7 +126,6 @@ const share = {
   x: 125,
   y: 23,
   fill: 'blue',
-  onclick: openShare,
 };
 
-export default share;
+export { share, openShare }

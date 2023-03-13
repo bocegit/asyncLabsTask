@@ -96,7 +96,6 @@ const rating = {
   x: 30,
   y: 20,
   fill: 'blue',
-  onclick: openRating,
 };
 
-export default rating;
+export { rating, openRating };

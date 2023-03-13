@@ -1,4 +1,4 @@
-import { formattedDate } from '../../../../utility';
+import { dateFormatter } from '/src/js/utility';
 
 const postInfo = (target, data) => {
   const row = document.createElement('div');
@@ -14,7 +14,7 @@ const postInfo = (target, data) => {
   const dateText = document.createElement('p');
   groupText.textContent = `Group: ${data.sportGroup.name}`;
   userText.textContent = `Author: ${data.author.name}`;
-  dateText.textContent = `Created: ${formattedDate(data.createdAt)}`;
+  dateText.textContent = `Created: ${dateFormatter(data.createdAt)}`;
 
   groupCol.appendChild(groupText);
   userCol.appendChild(userText);

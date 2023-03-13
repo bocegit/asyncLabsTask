@@ -2,6 +2,8 @@ import './styles/main.scss'
 import "regenerator-runtime/runtime";
 // import "core-js/features/promise"; // "core-js/stable";
 import laughing from './assets/laughing.svg'
+import bookmark from './assets/bookmark.svg'
+import link from './assets/link.svg'
 import rating from './assets/rating.png'
 import share from './assets/share.svg'
 import twitterIcon from '/src/assets/twitter.svg'
@@ -14,3 +16,4 @@ require('!style-loader!css-loader!video.js/dist/video-js.css')
 
 initGlobalHandlers();
 urlLocationHandler();
+

@@ -1,8 +1,5 @@
-import error from './components/error/error.js'
-import { renderPosts } from './controller/feed'
 import state from './state'
-
-const urlPageTitle = "TestApp";
+import urlRoutes from './config/routes'
 
 // create document click that watches the nav links only - event delegation
 document.addEventListener("click", (e) => {
@@ -11,30 +8,16 @@ document.addEventListener("click", (e) => {
     return;
   }
   e.preventDefault();
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach((link) => link.classList.remove('active'));
+  target.classList.add('active');
   urlRoute();
 });
-
-// create an object that maps the url to the template, title, and description
-const urlRoutes = {
-  404: {
-    template: error,
-    title: urlPageTitle + " | 404 ",
-    description: "Page not found",
-    name: '404'
-  },
-  "/": {
-    template: renderPosts,
-    title: urlPageTitle + " | Feed page",
-    description: urlPageTitle + " | Feed page",
-    name: 'feed',
-  },
-};
 
 // create a function that watches the url and calls the urlLocationHandler
 const urlRoute = (event) => {
   event = event || window.event; // get window.event if event argument not provided
   event.preventDefault();
-  // window.history.pushState(state, unused, target link);
   window.history.pushState({}, "", event.target.href);
   urlLocationHandler();
 };
@@ -66,12 +49,6 @@ const urlLocationHandler = () => {
   }
 
   route.template(container, route.description);
-
-  // get the html from the template
-  /* const html = await fetch(route.template).then((response) => response.text());
-  // set the content of the content div to the html
-  document.getElementById("content").innerHTML = html; */
-
   
   // set the title of the document to the title of the route
   document.title = route.title;

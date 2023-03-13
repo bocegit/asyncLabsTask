@@ -1,7 +1,9 @@
 import { select } from 'd3-selection';
 import { transition } from 'd3-transition';
+import { Modal } from 'bootstrap'
 
-const formattedDate = (d) => {
+const dateFormatter = (d) => {
+  // timezone +2
   const date = new Date(d);
   return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
@@ -22,4 +24,11 @@ const adjustSVGHeight = (group, reset) => {
     .attr('height', height);
 };
 
-export { formattedDate, adjustSVGHeight }
+const showError = (error) => {
+  const errorModal = document.getElementById('errorModal');
+  const modal = Modal.getOrCreateInstance(errorModal);
+  document.getElementById('errorBox').textContent = error;
+  modal.show();
+}
+
+export { dateFormatter, adjustSVGHeight, showError }

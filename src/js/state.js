@@ -2,7 +2,7 @@ const state = {
   feed: {
     active: true,
     page: 1,
-    sport: 'football'
+    sport: 'football',
   },
   global: {
     onScrollLoad: false,

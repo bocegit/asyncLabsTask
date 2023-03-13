@@ -38,5 +38,22 @@
     <footer class="py-3 my-4">
       <p class="text-center text-muted">© 2023 TestApp, Inc</p>
     </footer>
+
+    <!-- Error modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger" role="alert" id="errorBox">
+              A simple danger alert—check it out!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
