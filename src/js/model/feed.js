@@ -19,6 +19,7 @@ const getPosts = async function () {
 
     fetchData.data = await response.json();
   } catch(err) {
+    // optionally could send logs to server
     console.error(err);
     fetchData.status = 'error';
     fetchData.data = errorMessage.feed.getPosts;
@@ -66,6 +67,7 @@ const deleteBookmark = async function (postId) {
 
     const bookmarksData = await bookmarksResponse.json();
     let bookmarkId = 0;
+    
     for (let i=0; i < bookmarksData.length; i++) {
       if (bookmarksData[i].id === postId) {
         bookmarkId = bookmarksData[i].id;

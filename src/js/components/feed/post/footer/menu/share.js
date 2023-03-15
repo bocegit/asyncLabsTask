@@ -21,10 +21,12 @@ const sharePost = (d) => {
 };
 
 const shareClick = (ev, data) => {
-  select(ev.target.parentNode).selectAll('.menuIcon')
+  // close the share options
+  select(ev.target.parentNode)
+    .selectAll('.menuIcon')
     .nodes()[1]
     .dispatchEvent(new Event('click'));
-  // setTimeout is used only to show the user the close animation before oppening new tab
+  // hack - setTimeout is used only to show the user the close animation before oppening new tab
   setTimeout(() => sharePost(data), 900);
 };
 
@@ -57,10 +59,28 @@ const openShare = function (e, d) {
   ];
   const group = select(e.target.parentNode);
   const menuData = group.datum();
-  if (menuData.activeMenu === 'Rating') group.selectAll('.menuIcon').nodes()[0].dispatchEvent(new Event('click'));
+  
+  // check for active menu and close it
+  if (menuData.activeMenu === 'Rating') {
+    group
+      .selectAll('.menuIcon')
+      .nodes()[0]
+      .dispatchEvent(new Event('click'));
+  }
+  
+  // set the active menu to this
   menuData.activeMenu = d.tooltip;
-  select(e.target).on('click', closeShare);
-  group.selectAll('.shareIcon')
+
+  // attach handlers for closing
+  select(e.target)
+    .on('click', closeShare)
+    .on('keypress', (e, d) => {
+      if (e.keyCode === 13) closeShare(e, d);
+    });
+  
+  // create share icons
+  group
+    .selectAll('.shareIcon')
     .data(icons)
     .enter()
     .append('image')
@@ -71,8 +91,25 @@ const openShare = function (e, d) {
     .attr('opacity', 0)
     .attr('href', (d) => d.href)
     .attr('class', 'shareIcon')
+    .attr('tabindex', 0)
+    .attr('focusable', 'true')
+    .attr('role', 'button')
+    .attr('alt', (d) => {
+      if (d.href === 'assets/twitter.svg') return 'share post on twitter';
+      if (d.href === 'assets/reddit.svg') return 'share post on reddit';
+      if (d.href === 'assets/facebook.svg') return 'share post on facebook';
+    })
+    .attr('aria-label', (d) => {
+      if (d.href === 'assets/twitter.svg') return 'share post on twitter';
+      if (d.href === 'assets/reddit.svg') return 'share post on reddit';
+      if (d.href === 'assets/facebook.svg') return 'share post on facebook';
+    })
+    .attr('role', 'button')
     .style('cursor', 'pointer')
     .on('click', shareClick)
+    .on('keypress', (e, d) => {
+      if (e.keyCode === 13) shareClick(e, d);
+    })
     .transition()
     .duration(1000)
     .delay((d, i) => 200*i)
@@ -81,7 +118,9 @@ const openShare = function (e, d) {
     .attr('width', (d) => d.width)
     .attr('height', (d) => d.height);
   
-  group.selectAll('.shareBackground')
+  // transition the background for the share icons
+  group
+    .selectAll('.shareBackground')
     .transition()
     .delay((d, i) => 100*i)
     .duration(1000)
@@ -100,9 +139,18 @@ const openShare = function (e, d) {
 
 const closeShare = function (e, d) {
   const group = select(e.target.parentNode);
+  // clear the active menu from the menu state object
   group.datum().activeMenu = "";
-  select(e.target).on('click', openShare);
-  group.selectAll('.shareBackground')
+  // attach handlers for opening share options
+  select(e.target)
+    .on('click', openShare)
+    .on('keypress', (e, d) => {
+      if (e.keyCode === 13) openShare(e, d);
+    });
+  
+  // transition background to inital position
+  group
+    .selectAll('.shareBackground')
     .transition()
     .duration(1000)
     .attr('x', (d) => d.x)
@@ -114,10 +162,13 @@ const closeShare = function (e, d) {
     .style('fill', (d, i) => d.fill)
     .style('stroke', (d) => d.stroke)
     .style('stroke-width', (d) => d.strokeWidth);
+  
+  // remove share icons
   group.selectAll('.shareIcon').remove();
   adjustSVGHeight(group.node(), true);
 };
 
+// config for the share item
 const share = {
   tooltip: "Share",
   href: 'assets/share.svg',
@@ -126,6 +177,7 @@ const share = {
   x: 125,
   y: 23,
   fill: 'blue',
+  alt: 'share',
 };
 
 export { share, openShare }

@@ -14,6 +14,7 @@ const renderPosts = async (target) => {
   if (postData.status === 'success') {
     postData.data.forEach((v) => post(target, v));
 
+    // api returns 23 items per page so I use that info to control the scroll load
     if (postData.data.length > 22) {
       state.feed.page += 1;
       state.global.onScrollLoad = false;

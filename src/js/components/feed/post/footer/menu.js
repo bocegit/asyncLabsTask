@@ -11,13 +11,16 @@ import { showTooltip, removeTooltip } from './menu/tooltip';
 
 const menu = (target, data) => {
   const items = [rating, share, bookmark, link];
+  // hack to set the size of svg
   const width = (window.innerWidth < 600 ) ? 300 : 400;
   const height = (window.innerWidth < 600 ) ? 70 : 90;
+  // the state object for the menu
   const menuData = { 
     rating: 0, 
     activeMenu: "",
     postId: data.id
   };
+  // create the SVG and group element
   const g = select(target)
     .append('svg')
     .datum({ width: width, height: height})
@@ -25,15 +28,20 @@ const menu = (target, data) => {
     .attr('height', (d) => d.height)
     .attr('viewBox', '0 0 400 90')
     .attr('preserveAspectRatio', 'xMinYMin')
+    .attr('role', 'widget')
+    .attr('alt', 'post menu')
+    .attr('aria-label', 'post menu')
     .style('background-color', 'red')
     .append('g')
     .datum(menuData);
-  
+
+  // create backgrounds for the menu items
   ratingBackground(g);
   shareBackground(g);
   bookmarkBackground(g, data.bookmarked);
   linkBackground(g);
 
+  // create the menu items
   items.forEach((v) => {
     let handler;
     
@@ -50,8 +58,16 @@ const menu = (target, data) => {
       .attr('height', (d) => d.height)
       .attr('href', (d) => d.href)
       .attr('class', 'menuIcon')
-      .attr('cursor', 'pointer')
-      .on('click', handler) // (e, d) => d.onclick(e, d))
+      .attr('tabindex', 0)
+      .attr('focusable', 'true')
+      .attr('aria-label', (d) => d.alt)
+      .attr('alt', (d) => d.alt)
+      .attr('role', 'button')
+      .style('cursor', 'pointer')
+      .on('click', handler)
+      .on('keypress', (e, d) => {
+        if (e.keyCode === 13) handler(e, d);
+      })
       .on('mouseover', showTooltip)
       .on('mouseout', removeTooltip);
 

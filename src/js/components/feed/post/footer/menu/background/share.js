@@ -2,7 +2,6 @@ const shareBackground = (target) => {
   const profile = {
     fill: 'white',
     stroke: 'none',
-    //stroke_width: 2,
   };
   const data = [
     {

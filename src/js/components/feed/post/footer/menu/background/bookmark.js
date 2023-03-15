@@ -11,6 +11,7 @@ const reverseArcAngle = (data) => {
 
 const bookmarkBackground = (target, bookmarked) => {
   const fullCircle = 2 * Math.PI;
+  // used to draw the arc
   const arcGenerator = arc()
 	.padAngle(.02)
 	.padRadius(100)
@@ -19,8 +20,8 @@ const bookmarkBackground = (target, bookmarked) => {
   const arcData = [
     {
       startAngle: 0.75 * fullCircle,
-      endAngle: 1 * fullCircle,
-      newAngle: 1.5 * fullCircle,
+      endAngle: 1 * fullCircle, // angle for not bookmarked post
+      newAngle: 1.5 * fullCircle, // angle for bookmarked post
       innerRadius: 15,
       outerRadius: 40,
     },
@@ -47,9 +48,12 @@ const bookmarkBackground = (target, bookmarked) => {
     },
   ];
 
+  // check if its bookmarked and reverse the initial position 
   if (bookmarked) reverseArcAngle(arcData);
 
-  target.append('g')
+  // create the background
+  target
+    .append('g')
     .attr('transform', 'translate(244, 45)')
     .selectAll('.bookmarkBackground')
     .data(arcData)
@@ -58,7 +62,8 @@ const bookmarkBackground = (target, bookmarked) => {
     .attr('class', 'bookmarkBackground')
     .attr('d', (d) => arcGenerator(d))
     .style('fill', (d, i) => schemePastel1[i]);
-    
+  
+  // check if its bookmarked and return the initial position
   if (bookmarked) reverseArcAngle(arcData);
 
 };

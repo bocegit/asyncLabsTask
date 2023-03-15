@@ -8,6 +8,7 @@ const dateFormatter = (d) => {
   return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 }
 
+// control the height of the svg element
 const adjustSVGHeight = (group, reset) => {
   const svg = select(group.parentNode);
   let height = svg.datum().height;

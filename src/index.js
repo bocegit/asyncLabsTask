@@ -1,19 +1,26 @@
 import './styles/main.scss'
-import "regenerator-runtime/runtime";
-// import "core-js/features/promise"; // "core-js/stable";
-import laughing from './assets/laughing.svg'
-import bookmark from './assets/bookmark.svg'
-import link from './assets/link.svg'
-import rating from './assets/rating.png'
-import share from './assets/share.svg'
-import twitterIcon from '/src/assets/twitter.svg'
-import redditIcon from '/src/assets/reddit.svg'
-import facebookIcon from '/src/assets/facebook.svg'
-import 'bootstrap'
+// needed for babel to deal with async await
+import 'regenerator-runtime/runtime';
+// icons
+import './assets/laughing.svg'
+import './assets/bookmark.svg'
+import './assets/link.svg'
+import './assets/rating.png'
+import './assets/share.svg'
+import './assets/twitter.svg'
+import './assets/reddit.svg'
+import './assets/facebook.svg'
+// web components
+import './js/components/athletes/athleteBox'
+import './js/components/athletes/athleteBox/athleteInfo'
+import './js/components/athletes/athleteBox/athleteFollow'
 import initGlobalHandlers from './js/globalHandlers'
 import { urlLocationHandler } from './js/router'
+// video js library req
 require('!style-loader!css-loader!video.js/dist/video-js.css')
 
+// adding global event listeners
 initGlobalHandlers();
+// used to determine the page and start rendering
 urlLocationHandler();
 

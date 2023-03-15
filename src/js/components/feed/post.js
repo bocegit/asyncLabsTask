@@ -5,10 +5,10 @@ import footer from './post/footer'
 const card = (target, data) => {
   const container = document.createElement('div');
   container.className = "card";
+  container.setAttribute('aria-label', 'user post');
   header(container, data);
   body(container, data);
   footer(container, data);
-  // container.attributes.role = "alert";
   target.appendChild(container);
 
   return container;

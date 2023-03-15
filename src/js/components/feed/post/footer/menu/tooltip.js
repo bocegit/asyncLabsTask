@@ -1,10 +1,14 @@
 import { select } from 'd3-selection';
 
 const showTooltip = (e, d) => {
+  // get the bounding box of the clicked icon
   const iconBBox = e.target.getBBox();
+  // tooltip name
   const tooltipText = select(e.target).datum().tooltip;
   const group = select(e.target.parentNode);
+  // rect must be created before text cause of layering
   const rect = group.append('rect');
+  // create the text
   const text = group.append('text')
     .attr('x', iconBBox.x + 45)
     .attr('y', 5)
@@ -20,6 +24,8 @@ const showTooltip = (e, d) => {
     .transition()
     .duration(1000)
     .attr('opacity', 1);
+  
+  // get the text bounding box to calculate the rect size and position
   const textBBOx = text.node().getBBox();
   const padding = 10;
   const rectHeight = textBBOx.height + padding;

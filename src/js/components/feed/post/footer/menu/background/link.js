@@ -20,7 +20,8 @@ const linkBackground = (target) => {
     [358, 62],
   ];
 
-  target.append('path')
+  target
+    .append('path')
     .attr('class', 'linkBackground')
     .attr('d', line()(data))
     .style('fill', 'none')

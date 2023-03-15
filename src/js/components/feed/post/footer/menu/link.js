@@ -22,9 +22,14 @@ const openLink = (e, d) => {
     [315, 35],
   ];
   const linkNode = select(e.target);
-  linkNode.on('click', null);
+  // remove handlers so the user doesnt trigger them multiple times
+  linkNode
+    .on('click', null)
+    .on('keypress', null);
 
-  select(e.target.parentNode).append('path')
+  // creating the line transition
+  select(e.target.parentNode)
+    .append('path')
     .attr('class', 'linkAnimationBackground')
     .attr('d', line()(data))
     .attr('opacity', 0)
@@ -42,16 +47,27 @@ const openLink = (e, d) => {
       };
     })
     .on('end', function() {
+      // lets assume that the videos in the feed are from youtube
+      // check for mobile device to open in native app
       const url = ( /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) )
         ? "vnd.youtube://4KnNVK-udTU" 
         : "https://youtube.com/watch?v=4KnNVK-udTU";
         
       window.open(url, '_blank');
-      linkNode.on('click', openLink);
+
+      // attach handlers for opening link
+      linkNode
+        .on('click', openLink)
+        .on('keypress', (e, d) => {
+          if (e.keyCode === 13) openLink(e, d);
+        });
+      
+      // remove the created path
       this.remove();
     });
 };
 
+// config for the link item
 const link = {
   tooltip: "Link",
   href: 'assets/link.svg',
@@ -60,6 +76,7 @@ const link = {
   x: 310,
   y: 15,
   fill: 'blue',
+  alt: 'link',
 };
 
 export { link, openLink }

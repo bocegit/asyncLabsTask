@@ -7,10 +7,15 @@ const video = (target, data) => {
     controls: true,
     responsive: true,
     fluid: true,
-    sources: [{
-      src: data.video.url,
-      type: 'video/mp4' // cant use data.video.type because the wrong type is returned from the api
-    }]
+    sources: [
+      {
+        src: data.video.url,
+        type: 'video/mp4' // cant use data.video.type because the wrong type is returned from the api
+      }, {
+        src: data.video.url,
+        type: 'video/webm'
+      }
+    ]
   });
 
   target.appendChild(videoElement);
