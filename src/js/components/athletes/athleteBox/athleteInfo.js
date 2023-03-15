@@ -7,8 +7,8 @@ const css = `
     }
 
     img {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
     }
 
     .text {

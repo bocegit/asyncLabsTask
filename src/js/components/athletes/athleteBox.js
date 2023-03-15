@@ -1,13 +1,3 @@
-const css = `
-  <style>
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: center
-    }
-  </style>
-`;
-
 class AthleteBox extends HTMLElement {
   constructor() {
     super();

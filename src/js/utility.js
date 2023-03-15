@@ -21,7 +21,7 @@ const adjustSVGHeight = (group, reset) => {
   }
 
   svg.transition()
-    .duration(800)
+    .duration(600)
     .attr('height', height);
 };
 

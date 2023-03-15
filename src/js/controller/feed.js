@@ -2,7 +2,7 @@ import { getPosts, saveBookmark } from '../model/feed'
 import post from '../components/feed/post'
 import spinner from '../components/spinner/loadingContent'
 import state from '../state'
-import { select } from 'd3-selection';
+// import { select } from 'd3-selection';
 import { showError } from '../utility.js';
 import { setBookmarkHandler, addBookmarkAnimation, deleteBookmarkAnimation } from '../components/feed/post/footer/menu/bookmark'
 

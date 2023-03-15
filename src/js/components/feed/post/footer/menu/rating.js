@@ -1,6 +1,7 @@
 import { select } from 'd3-selection';
 import { adjustSVGHeight } from '/src/js/utility';
-import { transition } from 'd3-transition';
+import { easeBounceInOut } from 'd3-ease';
+// import { transition } from 'd3-transition';
 
 const textClick = function(e, d) {
   // set the rating on the menu state object
@@ -55,21 +56,24 @@ const openRating = function (e, d) {
         })
         .transition()
         .duration(1000)
+        .delay(i * 300)
         .attr('opacity', 1);
 
       const rectHeightIncrement = i*5;
 
       select(this).transition()
-        .duration(1000)
+        .duration(1200)
+        .delay(i * 200)
+        .ease(easeBounceInOut)
         .attr('x', trans.x - 15)
         .attr('y', 88 - rectHeightIncrement/2)
         .attr('width', 10)
         .attr('height', 40 + rectHeightIncrement)
+        .attr('rx', 52)
+        .attr('ry', 90)
         .style('fill', 'black')
         .style('stroke', 'none')
-        .style('stroke-width', 0)
-        .attr('rx', 52)
-        .attr('ry', 90);
+        .style('stroke-width', 0);
     });
 
   adjustSVGHeight(e.target.parentNode);

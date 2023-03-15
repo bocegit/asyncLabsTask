@@ -1,6 +1,7 @@
 import { line } from 'd3-shape';
 import { select } from 'd3-selection';
 import { interpolateString } from 'd3-interpolate';
+import { easeExp } from 'd3-ease';
 
 const openLink = (e, d) => {
   const data = [
@@ -38,6 +39,7 @@ const openLink = (e, d) => {
     .style('stroke-width', 6)
     .transition()
     .duration(1000)
+    .ease(easeExp)
     .attrTween('stroke-dasharray', function () {
       const len = this.getTotalLength();
       select(this).attr('opacity', 1);
